@@ -3,7 +3,7 @@
 @section('title')edit {{$post['title']}}@endsection
 
 @section('content')
-<form class="max-w-md mx-auto flex flex-col items-center" action={{route('posts.edit', ['postId' => $post['id']])}} method="POST">
+<form class="max-w-md mx-auto flex flex-col items-center" action={{route('posts.edit', ['postId' => $post['id']])}} method="POST" enctype="multipart/form-data">
     @csrf
     @method('PATCH')
     <div class="form-control w-full max-w-xs ">
@@ -11,7 +11,7 @@
           <span class="label-text" for="title">Title</span>
           
         </label>
-        <input value={{$post['title']}} name="title" type="text" id="title" placeholder="Post Title" class="input input-bordered w-full max-w-xs">
+        <input value="{{$post['title']}}" name="title" type="text" id="title" placeholder="Post Title" class="input input-bordered w-full max-w-xs">
     </div>
     <div class="form-control w-full max-w-xs">
         <label class="label" for="body">
@@ -41,6 +41,17 @@
         @endif
         @endforeach
         </select>
+    </div>
+    <div class="form-control w-full max-w-xs my-5">
+      <div class="flex w-full items-center justify-center bg-grey-lighter">
+        <label class="w-80 flex flex-col items-center px-4 py-6  rounded-lg tracking-wide uppercase  cursor-pointer hover:text-white">
+            <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+            </svg>
+            <span class="mt-2 leading-normal">Select a photo</span>
+            <input type='file' class="hidden" name="photo"/>
+        </label>
+    </div>
     </div>
     @if($errors->any())
           @foreach($errors->all() as $error)

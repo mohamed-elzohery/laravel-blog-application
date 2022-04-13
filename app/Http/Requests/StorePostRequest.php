@@ -24,9 +24,10 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:100|unique:posts|min:3',
+            'title' => 'required|max:100|min:3|unique:posts,title,'.$this->postId,
             'desc' => 'required|min:10',
             'author' => 'required',
+            'photo' => 'image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
 
@@ -38,6 +39,9 @@ class StorePostRequest extends FormRequest
             'title.unique' => 'Title is already taken',
             'desc.required' => 'Description is required',
             'author.required' => 'Author is required',
+            'photo.mimes'=>'Upload a valid image: jpg, png, jpeg',
+            'photo.image'=>'Not an image',
+            'photo.max'=>'Image size cannot exceed 2MB',
         ];
     }
 }

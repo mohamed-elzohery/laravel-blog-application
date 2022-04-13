@@ -9,8 +9,14 @@
     <div class=''>
         <h1 class="text-6xl">{{$post['title']}}</h1>
         <p class="text-md italic my-3 text-sm">created by <span class="text-content-base ">{{$post->user ? $post->user->name : 'unknown'}}</span> on {{\Carbon\Carbon::parse($post['created_at'])->format('M-d-Y');}}</p>
+        @if($post->photo)
+        <div class="my-4 w-80">
+            <img src="{{ asset('storage/images/'.$post->photo) }}"  alt={{$post['title']."photo"}}/>
+        </div>
+        @endif
         <p class="text-lg mt-6">{{$post['description']}}</p>
     </div>
+    
     <div class='mt-20 max-w-2xl' >
         @foreach ($post->comments as $comment) 
             <div class='flex flex-col mt-6 border p-4 rounded-lg border-slate-600' >

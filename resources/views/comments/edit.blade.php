@@ -44,7 +44,7 @@
                 @csrf
                 @method('PATCH')
                 <label for="comment" class="label mr-4">Edit comment</label>
-                <input  class="input flex-1 input-xlg" placeholder="edit comment" type="text" name="comment" id="comment" value={{$comment["body"]}}/>
+                <input  class="input flex-1 input-xlg" placeholder="edit comment" type="text" name="comment" id="comment" value="{{$comment["body"]}}"/>
                 <button type="sumbit" class='btn btn-info ml-4'>Edit comment</button>
             </form>
         </div>

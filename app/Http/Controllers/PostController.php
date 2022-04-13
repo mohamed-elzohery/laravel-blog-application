@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Session;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -28,12 +29,17 @@ class PostController extends Controller
     }
     
     public function store(StorePostRequest $req){
-        $input = $req->only(['title' , 'desc', 'author']);
-
+        $input = $req->only(['title' , 'desc', 'author', 'photo']);
+        $imageName = null;
+        if($req->photo){
+            $imageName = time().'.'.$input['photo']->extension();  
+            $input['photo']->storeAs('public/images', $imageName);
+        }
         Post::create([
             'title' => $input['title'],
             'description' => $input['desc'],
-            'user_id' => $input['author']
+            'user_id' => $input['author'],
+            'photo' => $imageName
         ]);
         return to_route('posts.index');
     }
@@ -50,16 +56,31 @@ class PostController extends Controller
     }
 
     public function update($postId, StorePostRequest $req){
-        $post = Post::where('id', $postId)->first()->update([
-            'title' => $req->title,
-            'description' => $req->desc,
-            'user_id' => $req->author,
+        $input = $req->only(['title' , 'desc', 'author', 'photo']);
+        $post = Post::where('id', $postId)->first();
+        if($req->photo){
+            Storage::delete('public/images/'.$post->photo);
+            $imageName = time().'.'.$input['photo']->extension();  
+            $input['photo']->storeAs('public/images', $imageName);
+        }else{
+            $imageName = $post->photo;
+        }
+        $post->update([
+            'title' => $input['title'],
+            'description' => $input['desc'],
+            'user_id' => $input['author'],
+            'photo' => $imageName
         ]);
         return redirect('/posts');
     }
 
     public function delete($postId){
-        Post::where('id', $postId)->delete();
+        $post = Post::where('id', $postId)->first();
+        // dd($post);
+        if($post->photo){
+            Storage::delete('public/images/'.$post->photo);
+        }
+        $post->delete();
         return redirect('/posts');
     }
 }
