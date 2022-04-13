@@ -28,10 +28,12 @@ class PostController extends Controller
     }
     
     public function store(StorePostRequest $req){
+        $input = $req->only(['title' , 'desc', 'author']);
+
         Post::create([
-            'title' => $req->title,
-            'description' => $req->desc,
-            'user_id' => $req->author
+            'title' => $input['title'],
+            'description' => $input['desc'],
+            'user_id' => $input['author']
         ]);
         return to_route('posts.index');
     }
