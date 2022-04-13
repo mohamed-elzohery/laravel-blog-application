@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 
@@ -22,3 +23,9 @@ Route::get('/posts/edit/{postId}', [PostController::class, 'edit'])->name('posts
 Route::Post('/posts/edit/{postId}', [PostController::class, 'update'])->name('posts.update');
 Route::get('/posts/delete/{postId}', [PostController::class, 'delete'])->name('posts.delete');
 Route::get('/posts/flush', [PostController::class, 'flush'])->name('posts.flush');
+
+// Comments Routes
+Route::post('/comments/{postId}', [CommentController::class, 'add'])->name('comments.add');
+Route::delete('/comments/{postId}/{commentId}', [CommentController::class, 'delete'])->name('comments.delete');
+Route::get('/comments/{postId}/{commentId}', [CommentController::class, 'view'])->name('comments.view');
+Route::patch('/comments/{postId}/{commentId}', [CommentController::class, 'edit'])->name('comments.update');

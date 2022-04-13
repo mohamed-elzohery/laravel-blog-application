@@ -20,8 +20,8 @@
         <tr>
             <th>{{$post['id']}}</th>
             <th>{{$post['title']}}</th>
-            <th>{{$post['author']}}</th>
-            <th>{{$post['createdAt']}}</th>
+            <th>{{$post->user ? $post->user->name : 'Not Found'}}</th>
+            <th>{{\Carbon\Carbon::parse($post['created_at'])->format('M-d-Y')}}</th>
             <th>
                 <a class="btn btn-info btn-sm" href={{route('posts.view', ['postId' => $post['id']])}}>view</a>
                 <a class="btn btn-success btn-sm" href={{route('posts.edit', ['postId' => $post['id']])}}>edit</a>
@@ -31,5 +31,9 @@
         @endforeach
       </tbody>
     </table>
+            {{-- Pagination --}}
+            <div class="flex justify-center items-center mt-10">
+              {!! $allPosts->links() !!}
+          </div>
   </div>
 @endsection
