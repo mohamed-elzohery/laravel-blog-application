@@ -30,6 +30,16 @@
             </div>
         @endforeach
         <div class='flex flex-col mt-6  p-4 rounded-lg' >
+            @if($errors->any())
+                @foreach($errors->all() as $error)
+                <div class="alert alert-error w-80 shadow-lg mb-5">
+                    <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span>{{$error}}</span>
+                    </div>
+                </div>
+                @endforeach
+            @endif
             <form method="POST" class='flex items-center' action={{route('comments.add', ['postId' => $post['id']])}}>
                 @csrf 
                 <label class="label mr-4">Add comment</label>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
@@ -20,13 +21,13 @@ class PostController extends Controller
         return view('posts.create', ['users' => $users]);
     }
     
-    public function store(Request $req){
+    public function store(StorePostRequest $req){
         Post::create([
             'title' => $req->title,
             'description' => $req->desc,
             'user_id' => $req->author
         ]);
-        return redirect('/posts');
+        return to_route('posts.index');
     }
 
     public function view($postId){
@@ -40,10 +41,10 @@ class PostController extends Controller
         return view('posts.edit', ['post' => $post, 'users' => $users]);
     }
 
-    public function update($postId, Request $req){
+    public function update($postId, StorePostRequest $req){
         $post = Post::where('id', $postId)->first()->update([
             'title' => $req->title,
-            'description' => $req->description,
+            'description' => $req->desc,
             'user_id' => $req->author,
         ]);
         return redirect('/posts');

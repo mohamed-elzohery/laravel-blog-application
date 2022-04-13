@@ -20,8 +20,8 @@ Route::get('/posts/create', [PostController::class, 'create'])->name('posts.crea
 Route::Post('/posts/store', [PostController::class, 'store'])->name('posts.store');
 Route::get('/posts/view/{postId}', [PostController::class, 'view'])->name('posts.view');
 Route::get('/posts/edit/{postId}', [PostController::class, 'edit'])->name('posts.edit');
-Route::Post('/posts/edit/{postId}', [PostController::class, 'update'])->name('posts.update');
-Route::get('/posts/delete/{postId}', [PostController::class, 'delete'])->name('posts.delete');
+Route::patch('/posts/edit/{postId}', [PostController::class, 'update'])->name('posts.update');
+Route::delete('/posts/delete/{postId}', [PostController::class, 'delete'])->name('posts.delete');
 Route::get('/posts/flush', [PostController::class, 'flush'])->name('posts.flush');
 
 // Comments Routes

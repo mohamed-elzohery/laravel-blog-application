@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function add(Request $req, $postId){
+    public function add(StoreCommentRequest $req, $postId){
         $post = Post::find((int) $postId);
         $post->Comments()->create([
             'user_id' => 1,
@@ -31,7 +32,7 @@ class CommentController extends Controller
         return view('comments.edit', ['post' => $post, 'comment' => $comment]);
     }
 
-    public function edit($postId, $commentId, Request $req){
+    public function edit($postId, $commentId, StoreCommentRequest $req){
         $post = Post::find((int) $postId);
         Comment::where('id', $commentId)->first()->update([
             'body' => $req->comment

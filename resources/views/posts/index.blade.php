@@ -22,10 +22,14 @@
             <th>{{$post['title']}}</th>
             <th>{{$post->user ? $post->user->name : 'Not Found'}}</th>
             <th>{{\Carbon\Carbon::parse($post['created_at'])->format('M-d-Y')}}</th>
-            <th>
+            <th class="flex justify-between">
                 <a class="btn btn-info btn-sm" href={{route('posts.view', ['postId' => $post['id']])}}>view</a>
-                <a class="btn btn-success btn-sm" href={{route('posts.edit', ['postId' => $post['id']])}}>edit</a>
-                <a class="btn btn-warning btn-sm" href={{route('posts.delete', ['postId' => $post['id']])}}>delete</a>
+                <a class="btn btn-success btn-sm ml-3" href={{route('posts.edit', ['postId' => $post['id']])}}>edit</a>
+                <form class="ml-3"  method="POST" action={{route('posts.delete', ['postId' => $post['id']])}}>
+                  @csrf
+                  @method('DELETE')
+                  <button type="sumbit" class="btn btn-warning btn-sm">Delete</button>
+                </form>
             </th>
         </tr>
         @endforeach
