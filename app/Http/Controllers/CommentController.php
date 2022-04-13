@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function add(StoreCommentRequest $req, $postId){
         $post = Post::find((int) $postId);
         $post->Comments()->create([

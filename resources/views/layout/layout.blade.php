@@ -26,8 +26,22 @@
             </div>
             <div class="flex-none ml-auto">
               <ul class="menu menu-horizontal p-0">
-                <li><a href={{route('posts.index')}}>Posts</a></li>
-                <li><a href={{route('posts.create')}}>Create Post</a></li>
+                @guest
+                            @if (Route::has('login'))
+                            <li><a href={{route('login')}}>Login</a></li>
+                            @endif
+                            @if (Route::has('register'))
+                            <li><a href={{route('register')}}>Register</a></li>
+                            @endif
+                        @else
+                        <li><a href={{route('posts.index')}}>Posts</a></li>
+                        <li><a href={{route('posts.create')}}>Create Post</a></li>
+                        <li>
+                          <form method="POST" action={{route('logout')}}>@csrf
+                          <button type="sumbit">Logout</button>
+                        </form>
+                        </li>
+                    @endguest              
               </ul>
             </div>
           </div>

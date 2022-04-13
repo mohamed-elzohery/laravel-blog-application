@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(){
         $allPosts =  Post::paginate(8);
         return view('posts.index', ['allPosts' => $allPosts]);
