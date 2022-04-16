@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
+use App\Jobs\DeletePostJob;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
@@ -71,7 +72,7 @@ class PostController extends Controller
             'user_id' => $input['author'],
             'photo' => $imageName
         ]);
-        return redirect('/posts');
+        return to_route('posts.index');
     }
 
     public function delete($postId){
@@ -81,6 +82,11 @@ class PostController extends Controller
             Storage::delete('public/images/'.$post->photo);
         }
         $post->delete();
-        return redirect('/posts');
+        return to_route('posts.index');
+    }
+
+    public function removeOldPost(){
+        dispatch(new DeletePostJob());
+        echo "Posts are deleted successfully";
     }
 }

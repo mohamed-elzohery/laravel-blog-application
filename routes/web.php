@@ -23,7 +23,7 @@ Route::get('/posts/view/{postId}', [PostController::class, 'view'])->name('posts
 Route::get('/posts/edit/{postId}', [PostController::class, 'edit'])->name('posts.edit');
 Route::patch('/posts/edit/{postId}', [PostController::class, 'update'])->name('posts.update');
 Route::delete('/posts/delete/{postId}', [PostController::class, 'delete'])->name('posts.delete');
-Route::get('/posts/flush', [PostController::class, 'flush'])->name('posts.flush');
+Route::get('/posts/flush', [PostController::class, 'removeOldPost'])->name('posts.flush');
 
 // Comments Routes
 Route::post('/comments/{postId}', [CommentController::class, 'add'])->name('comments.add');
