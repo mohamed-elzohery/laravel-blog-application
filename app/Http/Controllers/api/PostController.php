@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function index(){
-        $posts = Post::all();
+        $posts = Post::with('user')->get();
         return PostResource::collection($posts);
     }
 
