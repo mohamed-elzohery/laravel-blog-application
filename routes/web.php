@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SocialController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -31,6 +32,11 @@ Route::delete('/comments/{postId}/{commentId}', [CommentController::class, 'dele
 Route::get('/comments/{postId}/{commentId}', [CommentController::class, 'view'])->name('comments.view');
 Route::patch('/comments/{postId}/{commentId}', [CommentController::class, 'edit'])->name('comments.update');
 
+
+//auth routes
 Auth::routes();
+Route::get('/auth/redirect/{provider}', [SocialController::class, 'redirect']);
+Route::get('/auth/callback/{provider}', [SocialController::class, 'callback']);
+Route::get('/auth/{provider}/callback', [SocialController::class, 'callback']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

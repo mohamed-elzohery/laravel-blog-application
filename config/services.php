@@ -31,4 +31,16 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'github' => [
+        'client_id' => '34fca4c2c23b0c90593f',
+        'client_secret' => 'a41e1e74ff16cc30ee03017333c378906ab89d10',
+        'redirect' => 'http://localhost:8000/auth/callback/github',
+      ], 
+
+    'google' => [
+        'client_id' => '636108497429-ne9svkb1bv4gsgrd82a7kn9tt4mr065s.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect' => 'http://localhost:8000/auth/callback/google',
+    ],
+
 ];

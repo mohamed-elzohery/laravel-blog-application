@@ -19,8 +19,8 @@ class PostFactory extends Factory
         $title = $this->faker->name();
         return [
             'title' => $title,
-            'description' => $this->faker->text(),
-            'user_id' => 1,
+            'description' => $this->faker->text(100),
+            'user_id' => 9,
             'title-slug' => Str::slug($title, '-')
         ];
     }
