@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\api;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
-class PostsController extends Controller
+class PostController extends Controller
 {
     public function index(){
         $posts = Post::all();
-        return $posts;
+        return PostResource::collection($posts);
     }
 
     public function show($postId){
         $post = Post::where('id', $postId)->first();
-        return $post;
+        return new PostResource($post);
     }
 
     public function store(StorePostRequest $req){
@@ -34,7 +35,7 @@ class PostsController extends Controller
 
         return [
             "success" => true,
-            "data" => $post,
+            "data" => new PostResource($post),
             "msg" => "Post is created successfully"
         ];
     }
